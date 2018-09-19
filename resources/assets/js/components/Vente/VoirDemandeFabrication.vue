@@ -5,7 +5,7 @@
     </div>
     <div class="container">
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>
-        <h2 class="text-center text-secondary mt-5">DEMANDE DE FABRICATION Nº {{ data.numéro }}</h2>
+        <h2 class="text-center text-secondary mt-5">DEMANDE DE PRODUCTION Nº {{ data.numéro }}</h2>
         <!-- <a class="btn btn-danger text-light" :href="'/bon-livraison/créer/' + data.id">Créer Bon de Livraison</a> -->
         <div class="row my-3" v-if="! data.enregistré ">
             <div class="col-md-3">

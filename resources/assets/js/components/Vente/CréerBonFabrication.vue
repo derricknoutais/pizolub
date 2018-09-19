@@ -5,10 +5,10 @@
     </div>
     <div class="container h-100">
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>
-        <h1 class="text-center my-5">Créer Bon Fabrication</h1>
+        <h1 class="text-center my-5">Créer Bon Production</h1>
         <div class="col-md-4 offset-md-4">
             <div class="form-group">
-                <label for="">Sélection une Demande de Fabrication</label>
+                <label for="">Sélection une Demande de Production</label>
                 <select name="type" id="" class="form-control" v-model="demandeSelectionnée">
                     <option :value="demande" v-for="demande in demande_achats">{{ demande.numéro }}</option>
                 </select>

@@ -75756,7 +75756,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("h1", { staticClass: "text-center my-5" }, [
-          _vm._v("Créer une Demande de Fabrication")
+          _vm._v("Créer une Demande de Production")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6 offset-md-3" }, [
@@ -76213,7 +76213,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("h2", { staticClass: "text-center text-secondary mt-5" }, [
-          _vm._v("DEMANDE DE FABRICATION Nº " + _vm._s(_vm.data.numéro))
+          _vm._v("DEMANDE DE PRODUCTION Nº " + _vm._s(_vm.data.numéro))
         ]),
         _vm._v(" "),
         !_vm.data.enregistré
@@ -76528,7 +76528,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "text-center mt-3" }, [
-      _vm._v("Dossier Demande de Fabrication")
+      _vm._v("Dossier Demande de Production")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table mt-4 bg-white text-dark" }, [
@@ -76832,13 +76832,13 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("h1", { staticClass: "text-center my-5" }, [
-          _vm._v("Créer Bon Fabrication")
+          _vm._v("Créer Bon Production")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4 offset-md-4" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "" } }, [
-              _vm._v("Sélection une Demande de Fabrication")
+              _vm._v("Sélection une Demande de Production")
             ]),
             _vm._v(" "),
             _c(
@@ -77248,7 +77248,7 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("h2", { staticClass: "text-center text-secondary mt-5" }, [
-          _vm._v("BON DE FABRICATION Nº " + _vm._s(_vm.data.numéro))
+          _vm._v("BON DE PRODUCTION Nº " + _vm._s(_vm.data.numéro))
         ]),
         _vm._v(" "),
         !_vm.data.enregistré
@@ -77633,7 +77633,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("h2", { staticClass: "text-center mt-3" }, [
-      _vm._v("Dossier Bon de Fabrication")
+      _vm._v("Dossier Bon de Production")
     ]),
     _vm._v(" "),
     _c("table", { staticClass: "table mt-4 bg-white text-dark" }, [

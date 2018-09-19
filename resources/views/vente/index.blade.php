@@ -2,9 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center mt-4">MODULE FABRICATION</h2>
-        <div class="row justify-content-center mt-3">
-                
+        <h2 class="text-center mt-4">MODULE PRODUCTION</h2>
+        <div class="row justify-content-center mt-3">           
             <div class="col-md-4">
                 <a href="/module-fabrication/créer-demande-fabrication">
                     <div class="card h-100 text-center d-flex bg-primary ">
@@ -12,7 +11,7 @@
                             <img class="card-img-top text-center p-1" src="{{ asset('illustrations/créer-bon-production.svg') }} " style="width:33.1%" >
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title text-center text-light ">Créer Demande de Fabrication</h4>
+                            <h4 class="card-title text-center text-light ">Créer Demande de Production</h4>
                         </div>
                     </div>
                 </a> 
@@ -26,7 +25,7 @@
                     </div>
             
                     <div class="card-body">
-                        <h4 class="card-title text-center text-light ">Dossier Demande de Fabrication</h4>
+                        <h4 class="card-title text-center text-light ">Dossier Demande de Production</h4>
                     </div>
                 </div>
                 </a>
@@ -40,7 +39,7 @@
                             <img class="card-img-top text-center" src="{{ asset('illustrations/fabrication.svg') }} " style="width:40.1%" >
                         </div>
                         <div class="card-body">
-                            <h4 class="card-title text-center text-light ">Créer Bon Fabrication</h4>
+                            <h4 class="card-title text-center text-light ">Créer Bon Production</h4>
                         </div>
                     </div>
                 </a>
@@ -54,7 +53,7 @@
                         <img class="card-img-top text-center" src="{{ asset('illustrations/dossier-bon-vente.svg') }} " style="width:48.0%">
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title text-center text-light ">Dossier Bon Fabrication</h4>
+                        <h4 class="card-title text-center text-light ">Dossier Bon Production</h4>
                     </div>
                 </div>
                 </a>

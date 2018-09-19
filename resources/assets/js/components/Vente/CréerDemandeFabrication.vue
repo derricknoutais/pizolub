@@ -7,7 +7,7 @@
     <div class="container">
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>
         
-        <h1 class="text-center my-5">Créer une Demande de Fabrication</h1>
+        <h1 class="text-center my-5">Créer une Demande de Production</h1>
         <div class="col-md-6 offset-md-3">
             <form method="POST" @submit.prevent="storeForm">
                 <div class="form-group">

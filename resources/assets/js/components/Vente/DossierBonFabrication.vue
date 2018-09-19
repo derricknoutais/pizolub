@@ -1,7 +1,7 @@
 <template>
     <div class="container">
 
-        <h2 class="text-center mt-3">Dossier Bon de Fabrication</h2>
+        <h2 class="text-center mt-3">Dossier Bon de Production</h2>
         
         <table class="table mt-4 bg-white text-dark">
             <thead>
