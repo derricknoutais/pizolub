@@ -18,9 +18,10 @@ class CreateDemandeFabricationsTable extends Migration
             $table->string('numéro')->nullable()->unique();
             $table->unsignedInteger('client_id');
             $table->text('observation');
-            // $table->unsignedInteger('bon_fabrication_id')->nullable();
+            $table->unsignedInteger('bon_fabrication_id')->nullable();
             $table->unsignedInteger('agent_id')->nullable();
-            $table->string('état')->default('En Cours');;
+            $table->enum('état', ['Ouvert', 'En Attente de Validation', 'Validé', 'B.F Créé', 'Stock Fabriqué'])->default('Ouvert');
+            $table->boolean('validé')->default(0);
             $table->boolean('enregistré')->default(0);
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             // $table->foreign('bon_fabrication_id')->references('id')->on('bon_fabrications')->onDelete('cascade')->onUpdate('cascade');

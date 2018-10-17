@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BonFabrication;
 use App\ProduitBF;
+use App\ProduitDF;
 use App\DemandeFabrication;
 use App\Stock;
 use DB;
+use Auth;
 
 
 class BonFabricationController extends Controller
 {
     public function all(){
-        return BonFabrication::all();
+        return BonFabrication::with('agent')->get();
     }
     public function créerBonFabrication()
     {
@@ -36,7 +38,6 @@ class BonFabricationController extends Controller
     }
     public function créerNouveauBonFabrication(Request $request)
     {
-        
         $bon = BonFabrication::create([
             'demande_fabrication_id' => $request->id,
             'client_id' => $request->client_id,
@@ -44,18 +45,21 @@ class BonFabricationController extends Controller
         $bon->numeroFacture();
         if($bon){
             DemandeFabrication::find($request->id)->update([
-                'état' => 'Bon de Fabrication Créé'
+                'état' => 'B.F Créé'
             ]);
             return $bon;
         }
     }
     public function ajoutePb(Request $request, BonFabrication $bon)
     {
-        DB::table('bon_fabrications_produit_bases')->insert($request->all());
-        $bon->update([
-            'état' => 'Enregistré',
-            'enregistré' => 1
-        ]);
+        DB::transaction(function () use ($request, $bon){
+            DB::table('bon_fabrications_produit_bases')->insert($request->all());
+            $bon->update([
+                'état' => 'En Attente de Validation',
+                'enregistré' => 1
+            ]);
+        });
+        
     }
     public function répertoire()
     {
@@ -101,6 +105,9 @@ class BonFabricationController extends Controller
         $coût_production_total += ( $bon->main_d_oeuvre + $bon->sous_traitance + $bon->charges_diverses );
         // Augmenter les stocks de la demande
         foreach($bon->demande->produits as $produit){
+            ProduitDF::find($produit->pivot->id)->update([
+                'quantité_restante' => $produit->pivot->quantité
+            ]);
             $cmp = ( $produit->valeur + $coût_production_total ) / ( $produit->quantité + $produit->pivot->quantité); 
             $stock = Stock::create([
                 'stockable_id' => $produit->id,
@@ -124,8 +131,25 @@ class BonFabricationController extends Controller
             ]);
         }
         $bon->update([
-            'état' => "Produit"
+            'état' => "Stock Fabriqué"
+        ]);
+        $bon->demande->update([
+            'état' => "Stock Fabriqué"
         ]);
         return redirect('/module-fabrication/dossier-bon-fabrication');
+    }
+    public function modifier(Request $request){
+        // return $request->all();
+        foreach($request->all() as $req){
+            ProduitBF::find($req['id'])->update([
+                'quantité' => $req['quantité']
+            ]);
+        }
+    }
+    public function valider(BonFabrication $bonFabrication){
+        $bonFabrication->update([
+            'validé' => 1,
+            'état' => 'Validé'
+        ]);
     }
 }

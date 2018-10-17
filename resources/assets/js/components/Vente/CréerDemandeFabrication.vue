@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="progress" v-if="isActive" style="height: 15px;" >
-        <div ref="progressBar" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
+        <div ref="progressBar" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
     </div>
 
     <div class="container">

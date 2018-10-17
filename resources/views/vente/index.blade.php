@@ -25,7 +25,7 @@
                     </div>
             
                     <div class="card-body">
-                        <h4 class="card-title text-center text-light ">Dossier Demande de Production</h4>
+                        <h4 class="card-title text-center text-light ">Dossier Dem. Production</h4>
                     </div>
                 </div>
                 </a>
@@ -45,7 +45,6 @@
                 </a>
                 
             </div>
-
             <div class="col-md-4">
                 <a href="/module-fabrication/dossier-bon-fabrication">
                 <div class="card h-100 text-center d-flex bg-primary ">

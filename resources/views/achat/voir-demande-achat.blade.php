@@ -3,10 +3,7 @@
 
 @section('content')
 
+        <voir-demande-achat :data="{{ $da }}"></voir-demande-achat>
     
-
-    <voir-demande-achat :data="{{ $da }}">
-        
-    </voir-demande-achat>
 
 @endsection

@@ -18,7 +18,7 @@ class CreateBonVentesTable extends Migration
             $table->string('numéro')->nullable();
             $table->unsignedInteger('client_id');
             $table->text('observation');
-
+            
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

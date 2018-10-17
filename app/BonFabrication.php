@@ -3,12 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class BonFabrication extends Model
 {
     protected $guarded = [];
+    
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'agent_id');
+    }
     public function produits(){
-        return $this->belongsToMany(ProduitBase::class, 'bon_fabrications_produit_bases', 'bon_fabrication_id', 'produit_base_id')->withPivot('quantité');
+        return $this->belongsToMany(ProduitBase::class, 'bon_fabrications_produit_bases', 'bon_fabrication_id', 'produit_base_id')->withPivot('quantité', 'id');
     }
     public function demande(){
         return $this->belongsTo(DemandeFabrication::class, 'demande_fabrication_id');
@@ -23,7 +29,8 @@ class BonFabrication extends Model
             $count = "0" . $count;
         } 
         $this->update([
-            'numéro' => 'BF' . $count . '/' . date('Y')
+            'agent_id' => Auth::user()->id, 
+            'numéro' => 'BP' . $count . '/' . date('Y')
         ]);
 
     }

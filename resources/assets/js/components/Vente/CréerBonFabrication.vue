@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="progress" v-if="isLoading" style="height: 15px;" >
-        <div ref="progressBar" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
+        <div ref="progressBar" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
     </div>
     <div class="container h-100">
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>

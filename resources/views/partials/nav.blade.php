@@ -1,17 +1,19 @@
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel bg-primary cantarell">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}" class="img-fluid" alt="">
-        </a>
+        <div class="col-md-1">
+            <a class="" href="{{ url('/') }}">
+                <img src="{{ asset('images/logo.png') }}" class="" alt="" width="100%">
+            </a>
+        </div>
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item px-3">
-                    <a class="nav-link active text-white font-weight-bold" href="/module-achat">ACHAT</a> 
+                    <a class="nav-link text-white font-weight-bold" href="/module-achat">ACHAT</a> 
                 </li>
                 <li class="nav-item px-3">
                     <a class="nav-link text-white font-weight-bold" href="/module-vente">PRODUCTION</a>
@@ -20,11 +22,11 @@
                     <a class="nav-link disabled text-white font-weight-bold" href="/module-production">PRODUCTION</a>
                 </li> --}}
                 <li class="nav-item px-3">
-                    <a class="nav-link disabled text-white font-weight-bold" href="/module-distribution">DISTRBUTION</a>
+                    <a class="nav-link text-white font-weight-bold" href="/module-distribution">DISTRBUTION</a>
                 </li>
                 
                 <li class="nav-item px-3">
-                    <a class="nav-link disabled text-white font-weight-bold" href="/module-inventaire">STOCK</a>
+                    <a class="nav-link text-white font-weight-bold" href="/module-inventaire">STOCK</a>
                 </li>
             </ul>
             <!-- Right Side Of Navbar -->

@@ -19,7 +19,9 @@ class CreateBonFabricationsTable extends Migration
             $table->unsignedInteger('client_id');
             $table->unsignedInteger('agent_id')->nullable();
             $table->unsignedInteger('demande_fabrication_id');
-            $table->string('état')->default('En Cours');
+            $table->enum('état', ['Ouvert', 'En Attente de Validation', 'Validé', 'Stock Fabriqué'])->default('Ouvert');
+            $table->boolean('validé')->default(0);
+
             $table->boolean('enregistré')->default(0);
             $table->double('main_d_oeuvre')->nullable();
             $table->double('sous_traitance')->nullable();

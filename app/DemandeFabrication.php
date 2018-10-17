@@ -8,6 +8,11 @@ class DemandeFabrication extends Model
 {
     protected $guarded = [];
 
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'agent_id');
+    }
+    
     public function produits()
     {
         return $this->belongsToMany(ProduitFini::class, 'demande_fabrications_produit_finis', 'demande_fabrication_id', 'produit_fini_id')
@@ -31,7 +36,7 @@ class DemandeFabrication extends Model
         {
             $count = "0" . $count;
         } 
-        $this->update( [ 'numéro' => 'DF' . $count . '/' . date('Y') ] );
+        $this->update( [ 'numéro' => 'DP' . $count . '/' . date('Y') ] );
 
     }
 }

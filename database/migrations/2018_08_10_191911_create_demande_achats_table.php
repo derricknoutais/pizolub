@@ -20,10 +20,11 @@ class CreateDemandeAchatsTable extends Migration
             $table->unsignedInteger('fournisseur_id');
             $table->text('observation');
             $table->text('motif');
-            // $table->unsignedInteger('commande_id')->nullable();
-            $table->unsignedInteger('agent_id')->nullable();
-            $table->string('état')->default('En Cours');
+            $table->unsignedInteger('commande_id')->nullable();
+            $table->unsignedInteger('agent_id');
+            $table->enum('état', ['Ouvert', 'En Attente de Validation', 'Validé', 'B.C Créé', 'Stock Reçu'])->default('Ouvert');
             $table->boolean('enregistré')->default(0);
+            $table->boolean('validé')->default(0);
 
             $table->timestamps();
         });

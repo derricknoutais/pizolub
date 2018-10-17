@@ -8,9 +8,11 @@
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>
 
         <h2 class="text-center text-secondary">BON DE COMMANDE Nº {{ data.numero }} </h2>
-        <!-- <button type="button" class="btn btn-danger text-light"data-toggle="modal" data-target="#login">Modifier la facture</button> -->
-        <button type="button" class="btn btn-secondary text-light" data-toggle="collapse" data-target="#calculateur">Calculateur de Devises</button>
         
+        <imprimer  :data="data">
+            <button ref="h" type="button" class="btn btn-warning text-dark" data-toggle="collapse" data-target="#calculateur"><i class="fas fa-calculator mx-1"></i>Calculateur de Devises</button>
+            <button v-if="data.état !== 'Stock Reçu'" type="button" class="btn btn-info text-light"data-toggle="modal" data-target="#login" ><i class="fas fa-edit mx-1"></i>Modifier la facture</button>
+        </imprimer>
         <div class="collapse  fade" id="calculateur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
                 <div class="modal-content">
@@ -56,6 +58,11 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-5">
+            <p class="col-md-4"><strong>Frais Douanes: </strong>{{ data.frais_douane | currency }}</p>
+            <p class="col-md-4"><strong>Frais Transport: </strong>{{ data.frais_transport | currency}}</p>
+            <p class="col-md-4"><strong>Autres Frais: </strong>{{ data.autres_frais | currency}}</p>
+        </div>
         <div class="row mt-4">
             <div class="col-md-12">
                 <table class="table table-striped ">
@@ -87,10 +94,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="form-group col-md-12 text-center text-center mt-5" v-if="data.état === 'En Cours'">
-                <button @click="ajouteLesPrix" class="btn btn-secondary text-light">Envoyer le Bon<i class="mx-1" :class="isLoading ? 'fa fa-spinner fa-spin' : 'fas fa-save' "></i></button>
+            <div class="form-group col-md-12 text-center text-center mt-3" v-if="data.état === 'Ouvert'">
+                <button @click="ajouteLesPrix" class="btn btn-secondary text-light">Enregistrer<i class="mx-1" :class="isLoading ? 'fa fa-spinner fa-spin' : 'fas fa-save' "></i></button>
             </div>
-            <div class="form-group col-md-12 text-center text-center mt-5" v-if="editing">
+            <div class="form-group col-md-12 text-center text-center mt-3" v-if=" data.état !== 'Ouvert' && editing">
                 <button @click="editerLaCommande()" class="btn btn-secondary text-light">Modifier le Bon<i class="mx-1" :class="isLoading ? 'fa fa-spinner fa-spin' : 'fas fa-save' "></i></button>
             </div>
         </div> 
@@ -114,8 +121,7 @@ export default {
             prix_unitaire:[],
             prix_total: [],
             donnéesAEnvoyer: [],
-            isLoading: false,
-            progressValue: 0
+            progressValue: 0,
         }
     },
     props: {
@@ -136,10 +142,12 @@ export default {
             })
         },
         checkLogs(){
-            axios.post('/api/users/vérifieAccès', {email:this.email, password:this.password}).then(response => {
+            axios.post('/api/users/vérifieAccès', {email:this.email, password:this.password,type:'DAF'}).then(response => {
                 if(response.data === true){
                     $('#login').modal('hide')
                     this.editing = true; 
+                } else {
+                    alert(response.data)
                 }
             }).catch(error => {
                 console.log(error);
@@ -149,14 +157,18 @@ export default {
             this.donnéesAEnvoyer = [];
             this.prepareData();
             axios.post('/api/bon-commande/edit', this.donnéesAEnvoyer ).then(response => {
-                // this.isLoading = true;
-                // this.$notify({
-                //   group: 'foo',
-                //   title: 'Succès',
-                //   type: 'success',
-                //   text: "Bon de Commande Nº " + response.data.numero + " modifiée avec Succès",
-                // });
-                // var id = setInterval(this.progress, 35);
+                this.isLoading = true;
+
+                this.$notify({
+                  group: 'foo',
+                  title: 'Succès',
+                  type: 'success',
+                  text: "Bon de Commande Nº " + response.data.numero + " En Course avec Succès",
+                });
+                var id = setInterval(this.progress, 35);
+                setTimeout(() => {
+                    window.location.replace("/module-achat/dossier-bon-commande/" + this.data.id); 
+                }, 4500);
             }).catch(error => {
                 console.log(error);
             });
@@ -166,6 +178,7 @@ export default {
             this.prepareData();
             axios.post('/api/bon-commande/ajouteLesPrix', this.donnéesAEnvoyer).then(response => {
                 this.isLoading = true;
+                this.progressValue = 0;
                 this.$notify({
                   group: 'foo',
                   title: 'Succès',
@@ -209,7 +222,6 @@ export default {
                 this.progressValue ++;
             }
             this.$refs.progressBar.style.width = this.progressValue + "%";
-
         }
     },
     watch: {
@@ -222,7 +234,16 @@ export default {
     },
     mounted() {
         this.produits = this.data.produits
+        if( ! this.data.enregistré){
+            this.editing = true 
+        }
         this.montantTotal();
+        axios.get('/api/users/in-session').then(response => {
+            this.in_session = response.data
+            
+        }).catch(error => {
+            console.log(error);
+        });
     }
 }
 </script>

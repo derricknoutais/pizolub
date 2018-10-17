@@ -5,12 +5,13 @@ use App\BonCommande;
 use App\DemandeAchat;
 use App\ProduitBC;
 use DB;
+use Auth;
 use Illuminate\Http\Request;
 
 class BonCommandeController extends Controller
 {
     public function all(){
-        return BonCommande::all();
+        return BonCommande::with('agent')->get();
     }
     public function créerNouveauBonCommande(Request $request){
         $numero = BonCommande::numeroFacture($request->type);
@@ -19,7 +20,9 @@ class BonCommandeController extends Controller
             'fournisseur_id' => $request->fournisseur_id,
             'numero' => $numero,
             'type' => $request->type,
-            'état' => 'En Cours'
+            'état' => 'Ouvert',
+            'enregistré' => 0,
+            'agent_id' => Auth::user()->id
         ]);
         if($bon){
             foreach ($request->produits as $produit) {
@@ -30,7 +33,7 @@ class BonCommandeController extends Controller
                 ]);
             }
             DemandeAchat::find($request->id)->update([
-                'état' => 'Bon de Commande Créé'
+                'état' => 'B.C Créé'
             ]);
             return $bon;
         }
@@ -47,44 +50,44 @@ class BonCommandeController extends Controller
             ]);
         }  
         BonCommande::find($request[0]['id'])->update([
-            'état' => 'Enregistré'
+            'état' => 'En Attente de Validation',
+            'enregistré' => 1
         ]);
-        DemandeAchat::find($request[0]['da_id'])->update([
-            'état' => 'Bon Commande Envoyé'
-        ]); 
     }
     public function présenteLesCommandesAReçevoir(){
         return BonCommande::where('état', 'Envoyé')->get();
     }
     public function enregistrerLesFrais(Request $request, BonCommande $bc){
-        $commande = $bc->update([
-            'frais_douane' => $request->douane,
-            'frais_transport' => $request->transport,
-            'autres_frais' => $request->divers,
-            'état' => 'Stock Reçu'
-        ]);
-        
-        if($commande){
-            $bc->ventile();
-            $bc = BonCommande::find($bc->id);
-            $bc->augmenteLesStocks();
-            $bc->calculeLeCUMP();
-        }
-        foreach($bc->produits as $produit){
-            if(isset($produit->quantité)){
-                $produit->increment('quantité', $produit->pivot->quantité);
-            } else {
+        DB::transaction(function () use ($request, $bc){
+            $commande = $bc->update([
+                'frais_douane' => $request->douane,
+                'frais_transport' => $request->transport,
+                'autres_frais' => $request->divers,
+                'état' => 'Stock Reçu'
+            ]);
+            DemandeAchat::find($bc->demande_achat_id)->update([
+                'état' => 'Stock Reçu'
+            ]);
+
+            if($commande){
+                $bc->ventile();
+                $bc = BonCommande::find($bc->id);
+                $bc->augmenteLesStocks();
+                $bc->calculeLeCUMP();
+            }
+            foreach($bc->produits as $produit){
+                if(isset($produit->quantité)){
+                    $produit->increment('quantité', $produit->pivot->quantité);
+                } else {
+                    $produit->update([
+                        'quantité' => $produit->pivot->quantité
+                    ]);
+                }
                 $produit->update([
-                    'quantité' => $produit->pivot->quantité
+                    'valeur' => $produit->cump * $produit->quantité
                 ]);
             }
-            
-            $produit->update([
-                'valeur' => $produit->cump * $produit->quantité
-            ]);
-        }
-        
-        
+        }); 
     }
     public function edit(Request $request){
         $request->all();
@@ -97,5 +100,11 @@ class BonCommandeController extends Controller
             }
             
         }
+    }
+    public function valider(BonCommande $bc){
+        $bc->update([
+            'validé' => 1,
+            'état' => 'Validé'
+        ]);
     }
 }

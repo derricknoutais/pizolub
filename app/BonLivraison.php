@@ -11,6 +11,10 @@ class BonLivraison extends Model
     public function produits(){
         return $this->belongsToMany(ProduitFini::class, 'bon_livraisons_produit_finis', 'bon_livraison_id', 'produit_fini_id')->withPivot('id', 'quantité');
     }
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'agent_id');
+    }
     public function demande()
     {
         return $this->belongsTo(DemandeFabrication::class, 'demande_fabrication_id');

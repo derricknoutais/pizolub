@@ -22,10 +22,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" >
         @include('partials.nav')
-
-        <main class="">
+        <main class="pb-5">
             @yield('content')
         </main>
     </div>

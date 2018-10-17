@@ -2,6 +2,27 @@
     <div>
         <notifications group="foo" position="top left" classes="vue-notification mt-2 ml-1" width="20%"/>
         <h2 class="text-center">Dossier Bon de Commande</h2>
+        <div class="row">
+            <div class="col-md-2">Filtrer du :</div>
+            <div class="col-md-2">au :</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><input type="date" v-model.date="datedu" class="form-control"> </div>
+            <div class="col-md-2"><input type="date" v-model="dateau" class="form-control"></div>
+            <!-- <div class="col-md-2">
+                <select v-model="etat" class="form-control">
+                    <option value="En Attente de Validation">En Attente de Validation</option>
+                    <option value="En Cours">En Cours</option>
+                </select>
+            </div> -->
+            <!-- <div class="col-md-2">
+                <select v-model="utilisateur" class="form-control">
+                    <option :value="user.id" v-for="user in users">{{ user.name }}</option>
+                </select>
+            </div> -->
+            <div class="col-md-2"><button class="btn btn-primary" @click="filtrer()">Filter</button></div>
+            <!-- <div class="col-md-2"><button class="btn btn-primary" @click="reinitialiser()">Réinitialiser</button></div> -->
+        </div>
         <table class="table mt-4 bg-white text-dark">
             <thead>
                 <tr class="bg-primary text-light">
@@ -13,13 +34,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="commande,index in commandes">
+                <tr v-for="commande,index in filtered">
                     <td scope="row"><a :href=" '/module-achat/dossier-bon-commande/' + commande.id " data-toggle="tooltip" data-placement="top" :title=" 'Cliquer pour voir les détails de la commande Nº' + commande.numero">{{ commande.numero }}</a></td>
                     <td>{{ commande.état }}</td>
-                    <td>Stacey Zemlak</td>
+                    <td>{{ commande.agent.name }}</td>
                     <td>{{ commande.created_at }}</td>
+                    <td v-if="in_session.role === 'DG' || in_session.role === 'DAF'">
+                        <button v-if=" commande.état === 'En Attente de Validation' " class="btn btn-primary" @click="valider(commande)">Valider</button>
+                        <button @click="afficheCommandeARecevoir(index)" v-if="commande.état == 'Validé'" class="btn btn-primary text-light mt-1" data-toggle="modal" data-target="#exampleModal">Recevoir Commande</button>
+                    </td>
                     
-                    <button @click="afficheCommandeARecevoir(index)" v-if="commande.état == 'Enregistré'" class="btn btn-secondary text-light mt-1" data-toggle="modal" data-target="#exampleModal">Recevoir Commande</button>
                 </tr>
             </tbody>
         </table>
@@ -33,7 +57,7 @@
                         </button>
                     </div>
                     <div class="progress" v-if="isLoading" style="height: 15px;" >
-                        <div ref="progressBar" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
+                        <div ref="progressBar" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
                     </div>
                     <div class="modal-body">
                         <label>Frais de Douanes</label>
@@ -65,7 +89,11 @@ export default {
           divers: 300
       },
       isLoading: false,
-      progressValue: 0
+      progressValue: 0,
+    filtered: [],
+    datedu: '',
+    dateau: '',
+    in_session: {}
     };
   },
   methods: {
@@ -94,21 +122,46 @@ export default {
             });
         },
         progress(){
-                if(this.progressValue < 100){
-                    this.progressValue ++;
-                }
-                
-                this.$refs.progressBar.style.width = this.progressValue + "%";
-            
-        }
+            if(this.progressValue < 100){
+                this.progressValue ++;
+            }
+            this.$refs.progressBar.style.width = this.progressValue + "%";
+        },
+        filtrer(){
+            this.filtered = this.commandes.filter(element => {
+                return Date.parse(element.created_at.replace('-','/','g')) > Date.parse(this.datedu) && (Date.parse(element.created_at.replace('-','/','g'))) < Date.parse(this.dateau)
+            });
+        },
+        valider(demande){
+            axios.get('/api/bon-commande/valider/' + demande.id).then(response => {
+
+                this.$notify({ group: 'foo', title: 'Succès',
+                  type: 'success',
+                  text: "Demande d'Achat Nº " + demande.numero + " validée avec succès",
+                });
+
+                setTimeout(function(){
+                    location.reload()
+                }, 3000);
+
+            }).catch(error => {
+                console.log(error);
+            });
+        },
   },
   mounted() {
     axios.get("/api/bon-commande/all").then(response => {
-        this.commandes = response.data;
+        this.filtered = this.commandes = response.data;
       })
       .catch(error => {
         console.log(error);
-      });
+    });
+    axios.get('/api/users/in-session').then(response => {
+        this.in_session = response.data
+
+    }).catch(error => {
+        console.log(error);
+    });
   },
 };
 </script>

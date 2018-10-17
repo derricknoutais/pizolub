@@ -6,13 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class BonCommande extends Model
 {
-    protected $fillable = ['demande_achat_id', 'fournisseur_id', 'type', 'numero', 'état', 'frais_douane', 'frais_transport', 'autres_frais', 'coût_unitaire', 'coût_total'];
-    public function produits(){
+    protected $fillable = ['demande_achat_id', 'fournisseur_id', 'type', 'numero', 'état', 'frais_douane', 'frais_transport', 'autres_frais', 'coût_unitaire', 'coût_total', 'agent_id', 'enregistré', 'validé'];
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'agent_id');
+    }
+    public function demande()
+    {
+        return $this->hasOne('App\DemandeAchat');
+    }
+    public function produits()
+    {
         return $this->belongsToMany(ProduitBase::class, 'bon_commandes_produit_bases', 'bon_commande_id', 'produit_base_id')->withPivot('id', 'quantité', 'prix_unitaire', 'prix_total', 'coût_unitaire', 'coût_total');
     }
     public static function numeroFacture($type)
     {
-
         $count = BonCommande::where('type', $type)->count() + 1;
         
         if($count < 10){
@@ -25,7 +33,6 @@ class BonCommande extends Model
         } else if($type == "International"){
             return $numero =  "BCE" . $count . "/" . date('Y');
         }
-
     }
     public function quantitéTotaleCommandée()
     {
@@ -61,7 +68,6 @@ class BonCommande extends Model
             ]);
         }
     }
-
     public function augmenteLesStocks()
     {
         foreach($this->produits as $produit){
@@ -74,7 +80,6 @@ class BonCommande extends Model
             ]);
         }
     }
-
     public function calculeLeCUMP()
     {
         foreach($this->produits as $produit){

@@ -20,10 +20,9 @@ class CreateBonCommandesTable extends Migration
             $table->unsignedInteger('agent_id')->nullable();
             $table->unsignedInteger('demande_achat_id');
             $table->unsignedInteger('fournisseur_id')->nullable();
-
-            $table->boolean('approbation_daf')->default(0);
-            $table->boolean('approbation_dg')->default(0);
-            $table->string('état')->default('En Cours');
+            $table->enum('état', ['Ouvert', 'En Attente de Validation', 'Validé', 'Stock Reçu'])->default('Ouvert');
+            $table->boolean('validé')->default(0);
+            $table->boolean('enregistré')->default(0);
 
             $table->double('frais_douane')->default(0);
             $table->double('frais_transport')->default(0);

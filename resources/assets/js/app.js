@@ -41,6 +41,7 @@ Vue.component('inventaire-produit-fini', require('./components/Inventaire/Produi
 Vue.component('liste-stocks', require('./components/Inventaire/StockBase.vue'));
 Vue.component('liste-stocks-produit-fini', require('./components/Inventaire/StockProduitFini.vue'));
 
+
 /* 
 |--------------------------------------------------------------------------
 |                       Composants Module Achat
@@ -84,7 +85,14 @@ Vue.component('dossier-bon-distribution', require('./components/Distribution/Dos
 
 Vue.component('carte', require('./components/Partials/Carte.vue'));
 Vue.component('mini-carte', require('./components/Partials/MiniCarte.vue'));
-Vue.comp
+Vue.component('en-tete', require('./components/Partials/Header.vue'));
+Vue.component('imprimer', require('./components/Partials/Imprimer.vue'));
+Vue.component('filtres', require('./components/Partials/Filtres.vue'));
+
+
+
+
+
 const app = new Vue({
     el: '#app',
     

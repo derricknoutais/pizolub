@@ -2,7 +2,27 @@
     <div class="container">
 
         <h2 class="text-center mt-3">Dossier Bon de Production</h2>
-        
+        <div class="row">
+            <div class="col-md-2">Filtrer du :</div>
+            <div class="col-md-2">au :</div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><input type="date" v-model.date="datedu" class="form-control"> </div>
+            <div class="col-md-2"><input type="date" v-model="dateau" class="form-control"></div>
+            <!-- <div class="col-md-2">
+                <select v-model="etat" class="form-control">
+                    <option value="En Attente de Validation">En Attente de Validation</option>
+                    <option value="En Cours">En Cours</option>
+                </select>
+            </div> -->
+            <!-- <div class="col-md-2">
+                <select v-model="utilisateur" class="form-control">
+                    <option :value="user.id" v-for="user in users">{{ user.name }}</option>
+                </select>
+            </div> -->
+            <div class="col-md-2"><button class="btn btn-primary" @click="filtrer()">Filter</button></div>
+            <!-- <div class="col-md-2"><button class="btn btn-primary" @click="reinitialiser()">Réinitialiser</button></div> -->
+        </div>
         <table class="table mt-4 bg-white text-dark">
             <thead>
                 <tr class="bg-primary text-light">
@@ -11,20 +31,23 @@
                     <th>ÉTAT</th>
                     <th>ÉMIS PAR </th>
                     <th>DATE DE CRÉATION</th>
-                    <th>PRODUIRE</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(demande, index) in demandes">
+                <tr v-for="(demande, index) in filtered">
                     <td scope="row"><a :href=" '/module-fabrication/dossier-bon-fabrication/' +  demande.id ">{{ demande.numéro }}</a></td>
                     <td>{{ demande.observation }}</td>
-                    <td>{{ demande.enregistré ? 'Enregistré' : 'En Cours' }}</td>
-                    <td>User Name</td>
+                    <td>{{ demande.état}}</td>
+                    <td>{{ demande.agent.name }}</td>
                     <td>{{ demande.created_at }}</td>
 
                     <!-- :href=" '/api/bon-fabrication/' +  demande.id  + '/produire'" -->
-                    <td v-if="demande.état === 'Enregistré'">
+                    <td v-if="demande.état === 'Validé'">
                         <button  class="btn btn-primary text-light" data-toggle="modal"  data-target="#exampleModal" @click="afficheCommandeARecevoir(index)">Produire</button>
+                    </td>
+                    <td v-if="in_session.role === 'DG' || in_session.role === 'DT'">
+                        <button v-if="demande.état === 'En Attente de Validation'" class="btn btn-primary" @click="valider(demande)">Valider</button>
                     </td>
                 </tr>
             </tbody>
@@ -39,7 +62,7 @@
                         </button>
                     </div>
                     <div class="progress" v-if="isLoading" style="height: 15px;" >
-                        <div ref="progressBar" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
+                        <div ref="progressBar" class="progress-bar bg-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">{{ progressValue }}%</div>
                     </div>
                     <div class="modal-body">
                         <label>Main d'Oeuvre</label>
@@ -73,7 +96,11 @@ export default {
             index: 0,
             isLoading: false,
             progressValue: 0,
-            commandeAProduire: {}
+            commandeAProduire: {},
+            filtered: [],
+            datedu: '',
+            dateau: '',
+            in_session: {}
         }
     },
     methods: {
@@ -101,19 +128,41 @@ export default {
                 console.log(error);
             });
         },
+        valider(demande){
+            axios.get('/api/bon-fabrication/valider/' + demande.id).then(response => {
+
+                this.$notify({ group: 'foo', title: 'Succès',
+                  type: 'success',
+                  text: "Demande d'Achat Nº " + demande.numero + " validée avec succès",
+                });
+
+                setTimeout(function(){
+                    location.reload()
+                }, 3000);
+
+            }).catch(error => {
+                console.log(error);
+            });
+        },
         progress(){
                 if(this.progressValue < 100){
                     this.progressValue ++;
                 }
-
                 this.$refs.progressBar.style.width = this.progressValue + "%";
-
-        }
+        },
+        filtrer(){
+            this.filtered = this.demandes.filter(element => {
+                return Date.parse(element.created_at.replace('-','/','g')) > Date.parse(this.datedu) && (Date.parse(element.created_at.replace('-','/','g'))) < Date.parse(this.dateau)
+            });
+        },
     },
     mounted() {
         axios.get('/api/bon-fabrication/all').then(response => {
-            this.demandes = response.data
-            //console.log(response.data);
+            this.demandes = this.filtered = response.data
+        });
+        axios.get('/api/users/in-session').then(response => {
+            console.log(response.data)
+            this.in_session = response.data;
         })
     }
 }

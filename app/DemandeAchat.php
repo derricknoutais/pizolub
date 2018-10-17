@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DemandeAchat extends Model
 {
-    protected $fillable = ['type', 'fournisseur_id', 'observation', 'motif', 'numero', 'enregistré', 'état'];
+    protected $fillable = ['type', 'fournisseur_id', 'observation', 'agent_id', 'motif', 'numero', 'enregistré', 'état', 'validé'];
 
     public static function numeroFacture($type){
         $count = DemandeAchat::where('type', $type)->count() + 1;
@@ -24,6 +24,10 @@ class DemandeAchat extends Model
         
     }
     public function produits(){
-        return $this->belongsToMany(ProduitBase::class, 'demande_achats_produit_bases', 'demande_achat_id', 'produit_base_id')->withPivot('quantité');
+        return $this->belongsToMany(ProduitBase::class, 'demande_achats_produit_bases', 'demande_achat_id', 'produit_base_id')->withPivot('quantité', 'id');
+    }
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'agent_id');
     }
 }

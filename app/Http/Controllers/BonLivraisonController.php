@@ -8,11 +8,12 @@ use App\BonLivraison;
 use App\ProduitBL;
 use App\ProduitDF;
 use App\Stock;
+use Auth;
 class BonLivraisonController extends Controller
 {
     public function all()
     { 
-        return $bons = BonLivraison::with(['demande', 'produits'])->get();
+        return $bons = BonLivraison::with(['demande', 'produits', 'agent'])->get();
     }
 
     public function créer ()
@@ -22,11 +23,10 @@ class BonLivraisonController extends Controller
 
     public function créeLeBon(Request $request)
     {
-
-
         $bonLivraison = BonLivraison::create([
             'demande_fabrication_id' => $request->id,
-            'état' => 'En Cours'
+            'état' => 'Ouvert',
+            'agent_id' => Auth::user()->id
         ]);
         $bonLivraison->numeroFacture();
         foreach($request->produits as $produit){
@@ -67,7 +67,8 @@ class BonLivraisonController extends Controller
         }
             
         $bonLivraison->update([
-            'état' => 'Enregistré'
+            'état' => 'En Attente de Validation',
+            'enregistré' => 1
         ]);
     }
 
@@ -80,6 +81,7 @@ class BonLivraisonController extends Controller
         ]);
         for($i = 0; $i < sizeof($bonLivraison->produits); $i++) {
             $quantité_totale = ProduitBL::where('bon_livraison_id', $bonLivraison->id)->sum('quantité');
+
             ProduitDF::find($bonLivraison->demande->produits[$i]->pivot->id)->decrement('quantité_restante', $bonLivraison->produits[$i]->pivot->quantité);
             $stock = Stock::create([
                 'stockable_id' => $bonLivraison->produits[$i]->id,
@@ -99,6 +101,20 @@ class BonLivraisonController extends Controller
         }
         $bonLivraison->update([
             'état' => 'Livré'
+        ]);
+    }
+    public function modifier(Request $request){
+        // return $request->all();
+        foreach($request->all() as $req){
+            ProduitBL::find($req['id'])->update([
+                'quantité' => $req['quantité']
+            ]);
+        }
+    }
+    public function valider(BonLivraison $bl){
+        $bl->update([
+            'validé' => 1,
+            'état' => 'Validé'
         ]);
     }
 }

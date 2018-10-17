@@ -5,7 +5,7 @@
     <div class="col-md-6 offset-md-3 text-center" style="margin-top:10em">
         <img src="{{ asset('images/logo.png') }}" class="img-fluid" width="70%">
     </div>
-    <h1 class="text-center my-5">Bienvenue à Pizolub <span class=""> {{  Auth::user()->name }}</span></h1>
+    <h1 class="text-center my-5">Bienvenue à la page d'accueil <span class=""> {{  Auth::user()->name }}</span></h1>
     {{-- <div class="row justify-content-center mt-3">           
         <div class="col-md-3">
             <a href="/module-achat/créer-demande-achat">

@@ -1,4 +1,8 @@
 @extends('layouts.app') 
 @section('content')
-<dossier-demande-fabrication></dossier-demande-fabrication>
+<div class="container">
+    @include('partials.header')
+    <dossier-demande-fabrication></dossier-demande-fabrication>
+</div>
+
 @endsection

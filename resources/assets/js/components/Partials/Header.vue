@@ -1,14 +1,12 @@
-
+<template>
+<div>
     <div class="row mt-5">
         <div class="col-md-3">
             <img src="/images/logo.png" class="img-fluid">
         </div>
-        <div class="col-md-6">
-            @yield('title')
-        </div>
-        
-        <div class="col-md-3">
-            <p class="text-right">{{\Carbon\Carbon::today()->format('d-M-Y')}}</p>
+
+        <div class="col-md-3 offset-md-6">
+            <!-- <p class="text-right">{{ date() }}</p> -->
         </div>
     </div>
     <div class="row">
@@ -18,3 +16,11 @@
             <p><i class="fas fa-phone"></i> Tél: 55.28.40</p>
         </div>
     </div>
+</div>
+    
+</template>
+<script>
+export default {
+    
+}
+</script>

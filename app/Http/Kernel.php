@@ -36,6 +36,9 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'directeurs' => [
+            
+        ],
 
         'api' => [
             'throttle:60,1',
@@ -59,5 +62,13 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'directeurs' => \App\Http\Middleware\Directeurs::class,
+        'daf' => \App\Http\Middleware\DAF::class,
+        'dt' => \App\Http\Middleware\DT::class,
+        'dc' => \App\Http\Middleware\DC::class,
+        'service.comptable.technique' => \App\Http\Middleware\ServiceComptableEtTechnique::class,
+        'service.commercial' => \App\Http\Middleware\ServiceCommercial::class,
+        'service.technique' => \App\Http\Middleware\ServiceTechnique::class,
+        'service.comptable' => \App\Http\Middleware\ServiceComptable::class,
     ];
 }
