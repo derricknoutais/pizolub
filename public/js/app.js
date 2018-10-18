@@ -76995,7 +76995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         checkLogs: function checkLogs() {
             var _this3 = this;
 
-            axios.post('/api/users/vérifieAccès', { email: this.email, password: this.password, type: 'DT' }).then(function (response) {
+            axios.post('/api/users/vérifieAccès', { email: this.email, password: this.password, type: 'DC' }).then(function (response) {
                 if (response.data === true) {
                     $('#login').modal('hide');
                     _this3.editing = true;
@@ -77863,7 +77863,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(demande.created_at))]),
             _vm._v(" "),
-            _vm.in_session.role === "DG" || _vm.in_session.role === "DT"
+            _vm.in_session.role === "DG" || _vm.in_session.role === "DC"
               ? _c("td", [
                   !demande.validé
                     ? _c(
