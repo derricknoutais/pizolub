@@ -187,7 +187,7 @@ export default {
             this.$refs.progressBar.style.width = this.progressValue + "%";
         },
         checkLogs(){
-            axios.post('/api/users/vérifieAccès', {email:this.email, password:this.password,type:'DT'}).then(response => {
+            axios.post('/api/users/vérifieAccès', {email:this.email, password:this.password,type:'DC'}).then(response => {
                 if(response.data === true){
                     $('#login').modal('hide')
                     this.editing = true; 

@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'dt' => \App\Http\Middleware\DT::class,
         'dc' => \App\Http\Middleware\DC::class,
         'service.comptable.technique' => \App\Http\Middleware\ServiceComptableEtTechnique::class,
+        'service.technique.commercial' => \App\Http\Middleware\ServiceTechniqueEtCommercial::class,
         'service.commercial' => \App\Http\Middleware\ServiceCommercial::class,
         'service.technique' => \App\Http\Middleware\ServiceTechnique::class,
         'service.comptable' => \App\Http\Middleware\ServiceComptable::class,

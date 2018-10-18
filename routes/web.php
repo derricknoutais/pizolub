@@ -117,9 +117,6 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('dossier-bon-commande/{bc}', 'BonCommandeController@show');
             });
         });
-
-    
-    
     /* 
     |--------------------------------------------------------------------------
     |                        Routes Pour Le Module Vente
@@ -131,8 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('dossier-demande-fabrication/{demandeFabrication}', 'DemandeFabricationController@afficheLaDemande');
             Route::get('dossier-demande-fabrication', 'DemandeFabricationController@index');
         });
-        Route::view('/module-vente', 'vente.index'); 
-        Route::view('/module-vente/dossier-bon-vente', 'vente.dossier-bon-vente');
+        
     });
     Route::group(['middleware' => ['service.technique']], function () {
     Route::prefix('/module-fabrication')->group(function(){
@@ -143,7 +139,10 @@ Route::group(['middleware' => ['auth']], function () {
         // Route::view('/module-vente', 'vente.index'); 
         // Route::view('/module-vente/dossier-bon-vente', 'vente.dossier-bon-vente');
     });
-    
+    Route::group(['middleware' => ['service.technique.commercial']], function () {
+        Route::view('/module-vente', 'vente.index'); 
+        Route::view('/module-vente/dossier-bon-vente', 'vente.dossier-bon-vente');
+    });
     /* 
     |--------------------------------------------------------------------------
     |                        Routes Pour Le Module Inventaire
