@@ -1,5 +1,5 @@
 <?php
-Auth::loginUsingId(2);
+// Auth::loginUsingId(2);
 
 Auth::routes();
 
@@ -125,18 +125,25 @@ Route::group(['middleware' => ['auth']], function () {
     |                        Routes Pour Le Module Vente
     |--------------------------------------------------------------------------
     */
-    Route::group(['middleware' => ['service.technique']], function () {
+    Route::group(['middleware' => ['service.commercial']], function () {
         Route::prefix('/module-fabrication')->group(function(){
             Route::get('créer-demande-fabrication', 'DemandeFabricationController@créerDemandeFabrication');
             Route::get('dossier-demande-fabrication/{demandeFabrication}', 'DemandeFabricationController@afficheLaDemande');
             Route::get('dossier-demande-fabrication', 'DemandeFabricationController@index');
-            Route::get('créer-bon-fabrication', 'BonFabricationController@créerBonFabrication');
-            Route::get('dossier-bon-fabrication/{bonFabrication}', 'BonFabricationController@afficheLeBon' );
-            Route::get('dossier-bon-fabrication', 'BonFabricationController@répertoire' );
         });
         Route::view('/module-vente', 'vente.index'); 
         Route::view('/module-vente/dossier-bon-vente', 'vente.dossier-bon-vente');
     });
+    Route::group(['middleware' => ['service.technique']], function () {
+    Route::prefix('/module-fabrication')->group(function(){
+            Route::get('créer-bon-fabrication', 'BonFabricationController@créerBonFabrication');
+            Route::get('dossier-bon-fabrication/{bonFabrication}', 'BonFabricationController@afficheLeBon' );
+            Route::get('dossier-bon-fabrication', 'BonFabricationController@répertoire' );
+        });
+        // Route::view('/module-vente', 'vente.index'); 
+        // Route::view('/module-vente/dossier-bon-vente', 'vente.dossier-bon-vente');
+    });
+    
     /* 
     |--------------------------------------------------------------------------
     |                        Routes Pour Le Module Inventaire
