@@ -71478,6 +71478,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -71517,7 +71518,7 @@ var render = function() {
         [
           _c("carte", {
             attrs: {
-              link: "api/module-inventaire/Huile Base",
+              link: "/api/module-inventaire/Huile Base",
               image: "/illustrations/Huile-de-Base.svg",
               text: "Huile de Base",
               img_width: "30"
@@ -71585,31 +71586,44 @@ var render = function() {
                 },
                 [
                   _c("mini-carte", {
-                    attrs: { link: "/module-inventaire/virole", text: "Virole" }
-                  }),
-                  _vm._v(" "),
-                  _c("mini-carte", {
-                    attrs: { link: "/module-inventaire/pehd", text: "PEHD" }
-                  }),
-                  _vm._v(" "),
-                  _c("mini-carte", {
                     attrs: {
-                      link: "/module-inventaire/etiquette",
-                      text: "Étiquette"
+                      link: "/api/module-inventaire/Virolle",
+                      text: "Virolle"
                     }
                   }),
                   _vm._v(" "),
                   _c("mini-carte", {
                     attrs: {
-                      link: "/module-inventaire/matieres-premieres",
-                      text: "Mat. Premières"
+                      link: "/api/module-inventaire/Accessoire Fûts",
+                      text: "Accessoires Fûts"
                     }
                   }),
                   _vm._v(" "),
                   _c("mini-carte", {
                     attrs: {
-                      link: "/module-inventaire/emballages",
-                      text: "Emballage"
+                      link: "/api/module-inventaire/Étiquette",
+                      text: "Étiquettes"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("mini-carte", {
+                    attrs: {
+                      link: "/api/module-inventaire/Divers",
+                      text: "Divers"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("mini-carte", {
+                    attrs: {
+                      link: "/api/module-inventaire/Bouchon",
+                      text: "Bouchons"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("mini-carte", {
+                    attrs: {
+                      link: "/api/module-inventaire/Vidange",
+                      text: "Vidange"
                     }
                   })
                 ],
@@ -73399,6 +73413,287 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -73406,7 +73701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             rows: [],
             demande: {},
             produits: [],
-            typesProduits: ['Virole', 'Huile Base', 'PEHD', 'Additif'],
+            typesProduits: ['Virole', 'Huile Base', 'PEHD', 'Additif', 'Étiquette'],
             typeSelectionne: '',
             produitSelectionne: null,
             filtered: [],
@@ -73417,7 +73712,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             email: "",
             password: "",
             editing: false,
-            toModify: []
+            toModify: [],
+            montant_total: 0,
+            prix_total: [],
+            prix_unitaire: [],
+            donnéesAEnvoyer: [],
+            douane: 0,
+            transport: 0,
+            autre: 0
         };
     },
 
@@ -73514,27 +73816,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        calculeTotal: function calculeTotal(index, quantité) {
+            var pu = document.getElementById('input' + index).value;
+            this.prix_unitaire[index] = parseInt(pu);
+            var total = pu * quantité;
+            this.prix_total[index] = total;
+            // document.getElementById("total" + index).innerHTML = total 
+            this.montantTotal();
+        },
+        montantTotal: function montantTotal() {
+            var total = 0;
+            if (this.editing === true || this.data.état === 'Validé') {
+                this.prix_total.forEach(function (index) {
+                    total += parseInt(index);
+                });
+            } else {
+                this.produits.forEach(function (produit) {
+                    total += parseInt(produit.pivot.prix_total);
+                });
+            }
+
+            this.montant_total = parseInt(total);
+        },
+        enregistrerSimulation: function enregistrerSimulation() {
+            var _this5 = this;
+
+            this.donnéesAEnvoyer = [];
+            var quantité_totale = 0;
+            this.rows.forEach(function (each, index) {
+                quantité_totale += each.pivot.quantité;
+            });
+            this.rows.forEach(function (each, index) {
+                _this5.donnéesAEnvoyer.push({
+                    id: _this5.data.id,
+                    douane: _this5.douane,
+                    transport: _this5.transport,
+                    autre: _this5.autre,
+                    da_pb_id: each.pivot.id,
+                    quantité: each.pivot.quantité,
+                    prix_unitaire: _this5.prix_unitaire[index],
+                    prix_total: _this5.prix_total[index],
+                    montant_total: _this5.montant_total,
+                    quantité_totale: quantité_totale
+                });
+            });
+
+            axios.post('/api/demande-achat/créer-simulation', this.donnéesAEnvoyer).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {});
         }
     },
     watch: {
         typeSelectionne: function typeSelectionne() {
-            var _this5 = this;
+            var _this6 = this;
 
             if (this.typeSelectionne === null) {
                 this.filtered = this.produits;
             } else {
                 this.filtered = this.produits.filter(function (each) {
-                    return each.type === _this5.typeSelectionne;
+                    return each.type === _this6.typeSelectionne;
                 });
             }
         }
     },
     mounted: function mounted() {
-        var _this6 = this;
+        var _this7 = this;
 
         axios.get('/api/produit-base/all').then(function (response) {
-            _this6.produits = response.data;
-            _this6.filtered = _this6.produits;
+            _this7.produits = response.data;
+            _this7.filtered = _this7.produits;
         });
         this.rows = this.data.produits;
     }
@@ -74002,7 +74353,742 @@ var render = function() {
         ])
       ],
       1
-    )
+    ),
+    _vm._v(" "),
+    _vm.data.état !== "Ouvert"
+      ? _c("div", { staticClass: "container mt-5" }, [
+          _c("h1", { staticClass: "text-center" }, [
+            _vm._v("Module Simulation Prévisionelle")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "text-center btn btn-primary",
+              attrs: {
+                "data-toggle": "modal",
+                "data-target": "#créerSimulation"
+              }
+            },
+            [_vm._v("Créer Nouvelle Simulation")]
+          ),
+          _vm._v(" "),
+          _c("table", { staticClass: "table mt-3" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c("tbody", [
+              _vm.data.nombre_simulation > 0
+                ? _c("tr", [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.total_simulation1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_douane1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_transport1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_autres1))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.data.total_simulation1 +
+                            _vm.data.frais_douane1 +
+                            _vm.data.frais_transport1 +
+                            _vm.data.frais_autres1
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(6)
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.data.nombre_simulation > 1
+                ? _c("tr", [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.total_simulation2))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_douane2))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_transport2))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_autres2))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.data.total_simulation2 +
+                            _vm.data.frais_douane2 +
+                            _vm.data.frais_transport2 +
+                            _vm.data.frais_autres2
+                        )
+                      )
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.data.nombre_simulation > 2
+                ? _c("tr", [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.total_simulation3))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_douane3))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_transport3))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.data.frais_autres3))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.data.total_simulation3 +
+                            _vm.data.frais_douane3 +
+                            _vm.data.frais_transport3 +
+                            _vm.data.frais_autres3
+                        )
+                      )
+                    ])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              ref: "créerSimulation",
+              staticClass: "modal fade",
+              attrs: {
+                id: "créerSimulation",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mx-3 mt-3" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Douanes")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.douane,
+                              expression: "douane"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.douane },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.douane = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Transport")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.transport,
+                              expression: "transport"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.transport },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.transport = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Autres")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.autre,
+                              expression: "autre"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          domProps: { value: _vm.autre },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.autre = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row mt-4" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("table", { staticClass: "table table-striped " }, [
+                            _vm._m(10),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm._l(_vm.rows, function(produit, index) {
+                                  return _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(produit.nom))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("numFormat")(
+                                            produit.pivot.quantité
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm.data.état !== "Ouvert"
+                                        ? _c("input", {
+                                            attrs: {
+                                              id: "input" + index,
+                                              placeholder: _vm._f("currency")(
+                                                produit.pivot.prix_unitaire
+                                              )
+                                            },
+                                            on: {
+                                              keyup: function($event) {
+                                                _vm.calculeTotal(
+                                                  index,
+                                                  produit.pivot.quantité
+                                                )
+                                              }
+                                            }
+                                          })
+                                        : _c("span", [
+                                            _vm._v(
+                                              _vm._s(
+                                                _vm._f("currency")(
+                                                  produit.pivot.prix_unitaire
+                                                )
+                                              )
+                                            )
+                                          ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { attrs: { id: "total" + index } },
+                                      [
+                                        _vm.data.état === "Validé" ||
+                                        _vm.editing === true
+                                          ? _c("span", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm._f("currency")(
+                                                    _vm.prix_total[index]
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                          : _c("span", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm._f("currency")(
+                                                    produit.pivot.prix_total
+                                                  )
+                                                )
+                                              )
+                                            ])
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "font-weight-bold" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-right",
+                                      attrs: { colspan: "3" }
+                                    },
+                                    [_vm._v("Total")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("currency")(_vm.montant_total)
+                                      )
+                                    )
+                                  ])
+                                ])
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "modal-footer justify-content-center" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.enregistrerSimulation()
+                              }
+                            }
+                          },
+                          [_vm._v("Enregistrer")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            attrs: { type: "button", "data-dismiss": "modal" }
+                          },
+                          [_vm._v("Annuler")]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              ref: "prevision1",
+              staticClass: "modal fade",
+              attrs: {
+                id: "prevision1",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(11),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mx-3 mt-3" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Douanes")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_douane1))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Transport")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_transport1))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Autres")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_autres1))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row mt-4" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("table", { staticClass: "table table-striped " }, [
+                            _vm._m(12),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm._l(_vm.rows, function(produit, index) {
+                                  return _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(produit.nom))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("numFormat")(
+                                            produit.pivot.quantité
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("p", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              produit.pivot.pu_1
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { attrs: { id: "total" + index } },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("currency")(
+                                                produit.pivot.pt_1
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "font-weight-bold" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-right",
+                                      attrs: { colspan: "3" }
+                                    },
+                                    [_vm._v("Total")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("currency")(
+                                          _vm.data.total_simulation1
+                                        )
+                                      )
+                                    )
+                                  ])
+                                ])
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              ref: "prevision2",
+              staticClass: "modal fade",
+              attrs: {
+                id: "prevision2",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(13),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mx-3 mt-3" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Douanes")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_douane2))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Transport")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_transport2))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Autres")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_autres2))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row mt-4" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("table", { staticClass: "table table-striped " }, [
+                            _vm._m(14),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm._l(_vm.rows, function(produit, index) {
+                                  return _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(produit.nom))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("numFormat")(
+                                            produit.pivot.quantité
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("p", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              produit.pivot.pu_2
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { attrs: { id: "total" + index } },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("currency")(
+                                                produit.pivot.pt_2
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "font-weight-bold" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-right",
+                                      attrs: { colspan: "3" }
+                                    },
+                                    [_vm._v("Total")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("currency")(
+                                          _vm.data.total_simulation2
+                                        )
+                                      )
+                                    )
+                                  ])
+                                ])
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              ref: "prevision3",
+              staticClass: "modal fade",
+              attrs: {
+                id: "prevision3",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _vm._m(15),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row mx-3 mt-3" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Douanes")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_douane3))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Transport")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_transport3))])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c("label", [_vm._v("Frais Autres")]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.data.frais_autres3))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "row mt-4" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c("table", { staticClass: "table table-striped " }, [
+                            _vm._m(16),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              [
+                                _vm._l(_vm.rows, function(produit, index) {
+                                  return _c("tr", [
+                                    _c("td", [_vm._v(_vm._s(produit.nom))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("numFormat")(
+                                            produit.pivot.quantité
+                                          )
+                                        )
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("p", [
+                                        _vm._v(
+                                          _vm._s(
+                                            _vm._f("currency")(
+                                              produit.pivot.pu_3
+                                            )
+                                          )
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { attrs: { id: "total" + index } },
+                                      [
+                                        _c("p", [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm._f("currency")(
+                                                produit.pivot.pt_3
+                                              )
+                                            )
+                                          )
+                                        ])
+                                      ]
+                                    )
+                                  ])
+                                }),
+                                _vm._v(" "),
+                                _c("tr", { staticClass: "font-weight-bold" }, [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-right",
+                                      attrs: { colspan: "3" }
+                                    },
+                                    [_vm._v("Total")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("currency")(
+                                          _vm.data.total_simulation3
+                                        )
+                                      )
+                                    )
+                                  ])
+                                ])
+                              ],
+                              2
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ]
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -74090,6 +75176,250 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nom du Produit")]),
         _vm._v(" "),
         _c("th", [_vm._v("Quantité (kG)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("th", [_vm._v("Nº Simulation")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Total")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Frais Douane")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Frais Transport")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Frais Divers")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Total Simulation")]),
+      _vm._v(" "),
+      _c("th")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#prevision1"
+          }
+        },
+        [_vm._v("1")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("span", { staticClass: "fas fa-trash" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#prevision2"
+          }
+        },
+        [_vm._v("2")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "a",
+        {
+          attrs: {
+            href: "#",
+            "data-toggle": "modal",
+            "data-target": "#prevision3"
+          }
+        },
+        [_vm._v("3")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Créer Nouvelle Simulation")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nom du Produit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantité (Kg)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Unitaire (XAF)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Total (XAF)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Prévision Nº1")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nom du Produit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantité (Kg)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Unitaire (XAF)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Total (XAF)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Prévision Nº2")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nom du Produit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantité (Kg)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Unitaire (XAF)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Total (XAF)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Prévision Nº3")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nom du Produit")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Quantité (Kg)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Unitaire (XAF)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Prix Total (XAF)")])
       ])
     ])
   }
@@ -74366,7 +75696,8 @@ var render = function() {
               _vm._v(" "),
               _vm.in_session.role === "DG" || _vm.in_session.role === "DT"
                 ? _c("td", [
-                    !demande.validé
+                    !demande.validé &&
+                    demande.état === "En Attente de Validation"
                       ? _c(
                           "button",
                           {
@@ -81084,7 +82415,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.in_session.role === "DG" || _vm.in_session.role === "DT"
+            _vm.in_session.role === "DG" || _vm.in_session.role === "DC"
               ? _c("td", [
                   bon.état === "En Attente de Validation"
                     ? _c(
@@ -81361,7 +82692,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Partials/Carte.vue"
+Component.options.__file = "resources/assets/js/components/Inventaire/Carte.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -81370,9 +82701,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5f4cbc42", Component.options)
+    hotAPI.createRecord("data-v-2452fbfc", Component.options)
   } else {
-    hotAPI.reload("data-v-5f4cbc42", Component.options)
+    hotAPI.reload("data-v-2452fbfc", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -81458,7 +82789,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5f4cbc42", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-2452fbfc", module.exports)
   }
 }
 

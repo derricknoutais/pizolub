@@ -17,7 +17,23 @@ class CreateDemandeAchatsProduitBases extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('demande_achat_id');
             $table->unsignedInteger('produit_base_id');
-            $table->unsignedInteger('quantité');
+            $table->integer('quantité');
+
+            $table->double('pu_1')->nullable();
+            $table->double('pt_1')->nullable();
+            $table->double('cu_1')->nullable();
+            $table->double('ct_1')->nullable();
+
+            $table->double('pu_2')->nullable();
+            $table->double('pt_2')->nullable();
+            $table->double('cu_2')->nullable();
+            $table->double('ct_2')->nullable();
+
+            $table->double('pu_3')->nullable();
+            $table->double('pt_3')->nullable();
+            $table->double('cu_3')->nullable();
+            $table->double('ct_3')->nullable();
+
 
             $table->foreign('produit_base_id')->references('id')->on('produit_bases')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('demande_achat_id')->references('id')->on('demande_achats')->onDelete('cascade')->onUpdate('cascade');

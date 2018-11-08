@@ -80,7 +80,6 @@ export default {
                 this.progressValue ++;
             }
             this.$refs.progressBar.style.width = this.progressValue + "%";
-
         }
     },
     mounted(){

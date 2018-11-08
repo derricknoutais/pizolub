@@ -17,7 +17,7 @@ class CreateBonCommandesProduitBases extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('bon_commande_id');
             $table->unsignedInteger('produit_base_id');
-            $table->unsignedInteger('quantité');
+            $table->integer('quantité');
             $table->double('prix_unitaire')->nullable();
             $table->double('prix_total')->nullable();
 

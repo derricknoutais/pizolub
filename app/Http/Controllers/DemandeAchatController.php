@@ -74,6 +74,67 @@ class DemandeAchatController extends Controller
         ]);
     }
 
+    public function créerSimulation(Request $request){
+        DB::transaction(function () use ($request) {
+            $demande = DemandeAchat::find($request[0]['id']);
+            $douane = $request[0]['douane'];
+            $trans = $request[0]['transport'];
+            $autre = $request[0]['autre'];
+
+            $frais_unitaire = ($douane + $trans + $autre) / $request[0]['quantité_totale'];
+
+            if($demande->nombre_simulation == 0){
+                DemandeAchat::find($request[0]['id'])->update([
+                    'frais_douane1' => $douane,
+                    'frais_transport1' => $trans,
+                    'frais_autres1' => $autre,
+                    'nombre_simulation' => 1,
+                    'total_simulation1' => $request[0]['montant_total']
+                ]);
+                foreach($request->all() as $req){
+                    DemandeProduit::find($req['da_pb_id'])->update([
+                        'pu_1' => $req['prix_unitaire'],
+                        'pt_1' => $req['prix_total'],
+                        'cu_1' => $req['prix_unitaire'] + $frais_unitaire,
+                        'ct_1' => $req['prix_total'] + $frais_unitaire * $req['quantité'] 
+                    ]);
+                }
+            } else if($demande->nombre_simulation == 1){
+                DemandeAchat::find($request[0]['id'])->update([
+                    'frais_douane2' => $douane,
+                    'frais_transport2' => $trans,
+                    'frais_autres2' => $autre,
+                    'nombre_simulation' => 2,
+                    'total_simulation2' => $request[0]['montant_total']
+                ]);
+                foreach($request->all() as $req){
+                    DemandeProduit::find($req['da_pb_id'])->update([
+                        'pu_2' => $req['prix_unitaire'],
+                        'pt_2' => $req['prix_total'],
+                        'cu_2' => $req['prix_unitaire'] + $frais_unitaire,
+                        'ct_2' => $req['prix_total'] + $frais_unitaire * $req['quantité'] 
+                    ]);
+                }
+            } else if($demande->nombre_simulation == 2){
+                DemandeAchat::find($request[0]['id'])->update([
+                    'frais_douane3' => $douane,
+                    'frais_transport3' => $trans,
+                    'frais_autres3' => $autre,
+                    'nombre_simulation' => 3,
+                    'total_simulation3' => $request[0]['montant_total']
+                ]);
+                foreach($request->all() as $req){
+                    DemandeProduit::find($req['da_pb_id'])->update([
+                        'pu_3' => $req['prix_unitaire'],
+                        'pt_3' => $req['prix_total'],
+                        'cu_3' => $req['prix_unitaire'] + $frais_unitaire,
+                        'ct_3' => $req['prix_total'] + $frais_unitaire * $req['quantité'] 
+                    ]);
+                }
+            }
+        });
+    
+    }
     
     
     

@@ -17,7 +17,7 @@ class CreateBonFabricationsProduitsBase extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('bon_fabrication_id');
             $table->unsignedInteger('produit_base_id');
-            $table->unsignedInteger('quantité');
+            $table->integer('quantité');
             
             $table->foreign('produit_base_id')->references('id')->on('produit_bases')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('bon_fabrication_id')->references('id')->on('bon_fabrications')->onDelete('cascade')->onUpdate('cascade');

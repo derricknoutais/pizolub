@@ -2,6 +2,6 @@
 
 
 @section('content')
-<inventaire-hb></inventaire-hb>
+    <inventaire-hb></inventaire-hb>
     
 @endsection

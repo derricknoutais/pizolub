@@ -44,7 +44,7 @@
                     <td v-if="bon.état === 'Validé'">
                         <button @click="afficheCommandeARecevoir(index)" class="btn btn-primary text-light mt-1" data-toggle="modal" data-target="#exampleModal">Livrer</button>
                     </td>
-                    <td v-if="in_session.role === 'DG' || in_session.role === 'DT'">
+                    <td v-if="in_session.role === 'DG' || in_session.role === 'DC'">
                         <button v-if="bon.état === 'En Attente de Validation'" class="btn btn-primary" @click="valider(bon)">Valider</button>
                     </td>
                 </tr>

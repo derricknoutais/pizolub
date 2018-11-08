@@ -16,7 +16,7 @@ class CreateProduitBasesTable extends Migration
         Schema::create('produit_bases', function (Blueprint $table) {
             $table->increments('id');
             $table->longText('nom');
-            $table->enum('type',['Huile Base','Additif','Virole','PEHD']);
+            $table->enum('type',['Huile Base','Additif','Virolle', 'Fûts', 'PEHD', 'Étiquette', 'Bouchon', 'Divers', 'Accessoire Fûts', 'Vidange', 'Cartons Plats', 'Bidon Non Étiquetté', 'Bidon Étiquetté', 'Colorant']);
             $table->unsignedInteger('fournisseur_id')->nullable();
             $table->double('cump')->nullable();
             $table->double('quantité')->nullable()->default(0);

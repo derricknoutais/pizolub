@@ -1,12 +1,12 @@
 <?php
-// Auth::loginUsingId(2);
+Auth::loginUsingId(1);
 
 Auth::routes();
 
 /* 
 |--------------------------------------------------------------------------
 |                           Authentified Routes
-|--------------------------------------------------------------------------
+|------    --------------------------------------------------------------------
 |
 | Si tu n'es pas authentifié tu es redirigé vers la page Login 
 |
@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/modifier', 'DemandeAchatController@modifier');
             Route::get('supprimer/{demandeProduit}', 'DemandeAchatController@supprimer');
             Route::get('valider/{demandeAchat}', 'DemandeAchatController@valider');
+            Route::post('créer-simulation' , 'DemandeAchatController@créerSimulation');
         });
         Route::prefix('bon-commande')->group(function(){
             Route::post('créer', 'BonCommandeController@créerNouveauBonCommande');

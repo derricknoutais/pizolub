@@ -31,10 +31,7 @@
             }
         },
         methods: {
-
-            toggle(){
-                this.toggler = !this.toggler
-            }
+            toggle(){ this.toggler = !this.toggler }
         }
     }
 </script>

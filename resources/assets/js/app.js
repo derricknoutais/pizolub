@@ -83,7 +83,7 @@ Vue.component('dossier-bon-distribution', require('./components/Distribution/Dos
 |--------------------------------------------------------------------------
 */
 
-Vue.component('carte', require('./components/Partials/Carte.vue'));
+Vue.component('carte', require('./components/Inventaire/Carte.vue'));
 Vue.component('mini-carte', require('./components/Partials/MiniCarte.vue'));
 Vue.component('en-tete', require('./components/Partials/Header.vue'));
 Vue.component('imprimer', require('./components/Partials/Imprimer.vue'));

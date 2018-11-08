@@ -42,7 +42,7 @@
                     <td>{{ demande.agent.name }}</td>
                     <td>{{ demande.created_at }}</td>
                     <td v-if="in_session.role === 'DG' || in_session.role === 'DT'">
-                        <button v-if="! demande.validé" class="btn btn-primary" @click="valider(demande)">Valider</button>
+                        <button v-if="! demande.validé && demande.état === 'En Attente de Validation'" class="btn btn-primary" @click="valider(demande)">Valider</button>
                     </td>
                 </tr>
             </tbody>

@@ -26,6 +26,29 @@ class CreateDemandeAchatsTable extends Migration
             $table->boolean('enregistré')->default(0);
             $table->boolean('validé')->default(0);
 
+            $table->integer('nombre_simulation')->default(0);
+
+            $table->double('frais_douane1')->nullable();
+            $table->double('frais_transport1')->nullable();
+            $table->double('frais_autres1')->nullable();
+            $table->double('total_simulation1')->nullable();
+
+            $table->double('frais_douane2')->nullable();
+            $table->double('frais_transport2')->nullable();
+            $table->double('frais_autres2')->nullable();
+            $table->double('total_simulation2')->nullable();
+
+            $table->double('frais_douane3')->nullable();
+            $table->double('frais_transport3')->nullable();
+            $table->double('frais_autres3')->nullable();
+            $table->double('total_simulation3')->nullable();
+            
+            
+
+            
+            
+            
+
             $table->timestamps();
         });
     }

@@ -17,8 +17,8 @@ class CreateStocksTable extends Migration
             $table->increments('id');
             $table->integer('stockable_id');
             $table->string('stockable_type');
-            $table->unsignedInteger('entrée')->nullable();
-            $table->unsignedInteger('sortie')->nullable();
+            $table->integer('entrée')->nullable();
+            $table->integer('sortie')->nullable();
             $table->double('coût_achat_unitaire')->nullable();
             $table->double('coût_achat_total')->nullable();
             $table->double('coût_vente_unitaire')->nullable();

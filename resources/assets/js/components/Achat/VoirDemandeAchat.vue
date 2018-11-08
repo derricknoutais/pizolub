@@ -117,6 +117,287 @@
             
         </div> 
     </div>
+    <div class="container mt-5" v-if="data.état !== 'Ouvert'">
+        <h1 class="text-center">Module Simulation Prévisionelle</h1>
+        <button class="text-center btn btn-primary" data-toggle="modal" data-target="#créerSimulation">Créer Nouvelle Simulation</button>
+        <table class="table mt-3">
+            <thead>
+                <th>Nº Simulation</th>
+                <th>Total</th>
+                <th>Frais Douane</th>
+                <th>Frais Transport</th>
+                <th>Frais Divers</th>
+                <th>Total Simulation</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr v-if="data.nombre_simulation > 0">
+                    <td><a href="#" data-toggle="modal" data-target="#prevision1">1</a></td>
+                    <td>{{ data.total_simulation1 }}</td>
+                    <td>{{ data.frais_douane1 }}</td>
+                    <td>{{ data.frais_transport1 }}</td>
+                    <td>{{ data.frais_autres1 }}</td>
+                    <td>{{ data.total_simulation1 + data.frais_douane1 + data.frais_transport1 + data.frais_autres1 }}</td>
+                    <td><span class="fas fa-trash"></span></td>
+                </tr>
+                <tr v-if="data.nombre_simulation > 1">
+                    <td><a href="#" data-toggle="modal" data-target="#prevision2">2</a></td>
+                    <td>{{ data.total_simulation2 }}</td>
+                    <td>{{ data.frais_douane2 }}</td>
+                    <td>{{ data.frais_transport2 }}</td>
+                    <td>{{ data.frais_autres2 }}</td>
+                    <td>{{ data.total_simulation2 + data.frais_douane2 + data.frais_transport2 + data.frais_autres2 }}</td>
+                </tr>
+                <tr v-if="data.nombre_simulation > 2">
+                    <td><a href="#" data-toggle="modal" data-target="#prevision3">3</a></td>
+                    <td>{{ data.total_simulation3 }}</td>
+                    <td>{{ data.frais_douane3 }}</td>
+                    <td>{{ data.frais_transport3 }}</td>
+                    <td>{{ data.frais_autres3 }}</td>
+                    <td>{{ data.total_simulation3 + data.frais_douane3 + data.frais_transport3 + data.frais_autres3 }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="modal fade" ref="créerSimulation" id="créerSimulation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Créer Nouvelle Simulation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row mx-3 mt-3">
+                        <div class="col-md-4">
+                            <label>Frais Douanes</label>
+                            <input class="form-control" v-model="douane"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Transport</label>
+                            <input class="form-control" v-model="transport"/>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Autres</label>
+                            <input class="form-control" v-model="autre"/>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom du Produit</th>
+                                            <th>Quantité (Kg)</th>
+                                            <th>Prix Unitaire (XAF)</th>
+                                            <th>Prix Total (XAF)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(produit, index) in rows">
+                                            <td>{{ produit.nom }}</td>
+                                            <td>{{ produit.pivot.quantité | numFormat }}</td>
+                                            <td>
+                                                <input v-if="data.état !== 'Ouvert'"  :id=" 'input' + index" @keyup="calculeTotal(index, produit.pivot.quantité )" :placeholder="produit.pivot.prix_unitaire | currency" />
+                                                <span v-else>{{ produit.pivot.prix_unitaire | currency}}</span>
+                                            </td>
+                                            <td :id="'total' + index">
+                                                <span v-if="data.état === 'Validé' || editing === true">{{ prix_total[index] | currency }}</span>
+                                                <span v-else>{{ produit.pivot.prix_total | currency }}</span>
+                                            </td>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{ montant_total | currency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" @click="enregistrerSimulation()">Enregistrer</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" ref="prevision1" id="prevision1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Prévision Nº1</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row mx-3 mt-3">
+                        <div class="col-md-4">
+                            <label>Frais Douanes</label>
+                            <p>{{ data.frais_douane1 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Transport</label>
+                            <p>{{ data.frais_transport1 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Autres</label>
+                            <p>{{ data.frais_autres1 }}</p>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom du Produit</th>
+                                            <th>Quantité (Kg)</th>
+                                            <th>Prix Unitaire (XAF)</th>
+                                            <th>Prix Total (XAF)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(produit, index) in rows">
+                                            <td>{{ produit.nom }}</td>
+                                            <td>{{ produit.pivot.quantité | numFormat }}</td>
+                                            <td>
+                                                <p>{{ produit.pivot.pu_1 | currency}}</p>
+                                            </td>
+                                            <td :id="'total' + index">
+                                                <p>{{ produit.pivot.pt_1 | currency }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{ data.total_simulation1 | currency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" ref="prevision2" id="prevision2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Prévision Nº2</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row mx-3 mt-3">
+                        <div class="col-md-4">
+                            <label>Frais Douanes</label>
+                            <p>{{ data.frais_douane2 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Transport</label>
+                            <p>{{ data.frais_transport2 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Autres</label>
+                            <p>{{ data.frais_autres2 }}</p>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom du Produit</th>
+                                            <th>Quantité (Kg)</th>
+                                            <th>Prix Unitaire (XAF)</th>
+                                            <th>Prix Total (XAF)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(produit, index) in rows">
+                                            <td>{{ produit.nom }}</td>
+                                            <td>{{ produit.pivot.quantité | numFormat }}</td>
+                                            <td>
+                                                <p>{{ produit.pivot.pu_2 | currency}}</p>
+                                            </td>
+                                            <td :id="'total' + index">
+                                                <p>{{ produit.pivot.pt_2 | currency }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{ data.total_simulation2 | currency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" ref="prevision3" id="prevision3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Prévision Nº3</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="row mx-3 mt-3">
+                        <div class="col-md-4">
+                            <label>Frais Douanes</label>
+                            <p>{{ data.frais_douane3 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Transport</label>
+                            <p>{{ data.frais_transport3 }}</p>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Frais Autres</label>
+                            <p>{{ data.frais_autres3 }}</p>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <table class="table table-striped ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom du Produit</th>
+                                            <th>Quantité (Kg)</th>
+                                            <th>Prix Unitaire (XAF)</th>
+                                            <th>Prix Total (XAF)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(produit, index) in rows">
+                                            <td>{{ produit.nom }}</td>
+                                            <td>{{ produit.pivot.quantité | numFormat }}</td>
+                                            <td>
+                                                <p>{{ produit.pivot.pu_3 | currency}}</p>
+                                            </td>
+                                            <td :id="'total' + index">
+                                                <p>{{ produit.pivot.pt_3 | currency }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr class="font-weight-bold">
+                                            <td colspan="3" class="text-right">Total</td>
+                                            <td>{{ data.total_simulation3 | currency }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     
 </template>
@@ -128,7 +409,7 @@ export default {
             rows: [],
             demande: {},
             produits:[],
-            typesProduits: ['Virole', 'Huile Base', 'PEHD', 'Additif'],
+            typesProduits: ['Virole', 'Huile Base', 'PEHD', 'Additif', 'Étiquette'],
             typeSelectionne: '',
             produitSelectionne: null,
             filtered: [], 
@@ -139,7 +420,14 @@ export default {
             email: "",
             password: "",
             editing : false,
-            toModify: []
+            toModify: [],
+            montant_total: 0,
+            prix_total: [],
+            prix_unitaire: [],
+            donnéesAEnvoyer: [],
+            douane: 0,
+            transport: 0,
+            autre: 0
         }
     },
     props: {
@@ -229,6 +517,55 @@ export default {
                 console.log(error);
             });
         },
+        calculeTotal(index, quantité){
+            const pu = document.getElementById('input' + index).value;
+            this.prix_unitaire[index] = parseInt(pu);
+            const total = pu * quantité;
+            this.prix_total[index] = total
+            // document.getElementById("total" + index).innerHTML = total 
+            this.montantTotal();
+        },
+        montantTotal(){
+            var total = 0;
+            if(this.editing === true || this.data.état === 'Validé'){
+                this.prix_total.forEach(index => {
+                    total += parseInt(index)
+                }); 
+            } else {
+                this.produits.forEach( produit => {
+                    total += parseInt(produit.pivot.prix_total)
+                });
+            }
+
+            this.montant_total = parseInt(total);
+        },
+        enregistrerSimulation(){
+            this.donnéesAEnvoyer = []
+            var quantité_totale = 0;
+            this.rows.forEach( (each, index) => {
+                quantité_totale += each.pivot.quantité
+            });
+            this.rows.forEach( (each, index) => {
+                this.donnéesAEnvoyer.push({
+                    id: this.data.id,
+                    douane: this.douane,
+                    transport: this.transport,
+                    autre: this.autre,
+                    da_pb_id: each.pivot.id,
+                    quantité: each.pivot.quantité,
+                    prix_unitaire: this.prix_unitaire[index],
+                    prix_total: this.prix_total[index],
+                    montant_total : this.montant_total,
+                    quantité_totale : quantité_totale
+                })
+            });
+
+            axios.post('/api/demande-achat/créer-simulation', this.donnéesAEnvoyer).then(response => {
+                console.log(response.data)
+            }).catch(error => {
+
+            });
+        }
     },
     watch:{
         typeSelectionne(){

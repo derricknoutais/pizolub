@@ -17,7 +17,7 @@ class BonLivraisonsProduitFinis extends Migration
             $table->increments('id');
             $table->unsignedInteger('bon_livraison_id');
             $table->unsignedInteger('produit_fini_id');
-            $table->unsignedInteger('quantité')->nullable();
+            $table->integer('quantité')->nullable();
             $table->foreign('produit_fini_id')->references('id')->on('produit_finis')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('bon_livraison_id')->references('id')->on('bon_livraisons')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

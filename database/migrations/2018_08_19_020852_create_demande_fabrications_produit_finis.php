@@ -17,8 +17,8 @@ class CreateDemandeFabricationsProduitFinis extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('demande_fabrication_id');
             $table->unsignedInteger('produit_fini_id');
-            $table->unsignedInteger('quantité');
-            $table->unsignedInteger('quantité_restante')->nullable();
+            $table->integer('quantité');
+            $table->integer('quantité_restante')->nullable();
             $table->foreign('produit_fini_id')->references('id')->on('produit_finis')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('demande_fabrication_id', 'df_pf_demande_fabrication_id_foreign')->references('id')->on('demande_fabrications')->onDelete('cascade')->onUpdate('cascade');
         });
