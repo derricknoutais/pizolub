@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('ajoute-pb/{demande}', 'DemandeAchatController@ajoutePb');
             Route::post('/modifier', 'DemandeAchatController@modifier');
             Route::get('supprimer/{demandeProduit}', 'DemandeAchatController@supprimer');
+            Route::get('{demande}/supprimer-simulation/{index}', 'DemandeAchatController@supprimerSimulation');
             Route::get('valider/{demandeAchat}', 'DemandeAchatController@valider');
             Route::post('créer-simulation' , 'DemandeAchatController@créerSimulation');
         });

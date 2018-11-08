@@ -135,6 +135,57 @@ class DemandeAchatController extends Controller
         });
     
     }
+    // public function supprimerSimulation(DemandeAchat $demande , $index){
+    //     if($index === 1){
+    //         $demande->update([
+    //             'frais_douane1' => 0,
+    //             'frais_transport1' => 0,
+    //             'frais_autres1' => 0,
+    //             'nombre_simulation' => $demande->nombre_simulation - 1,
+    //             'total_simulation1' => 0
+    //         ]);
+    //         foreach($demande->produits as $produit){
+    //             $produit->update([
+    //                 'pu_1' => 0,
+    //                 'pt_1' => 0,
+    //                 'cu_1' => 0,
+    //                 'ct_1' => 0
+    //             ]);
+    //         }
+    //     } elseif ($index === 2) {
+    //         $demande->update([
+    //             'frais_douane2' => NULL,
+    //             'frais_transport2' => NULL,
+    //             'frais_autres2' => NULL,
+    //             'nombre_simulation' => $demande->nombre_simulation - 1,
+    //             'total_simulation2' => NULL
+    //         ]);
+    //         foreach($demande->produits as $produit){
+    //             $produit->update([
+    //                 'pu_2' => NULL,
+    //                 'pt_2' => NULL,
+    //                 'cu_2' => NULL,
+    //                 'ct_2' => NULL
+    //             ]);
+    //         }
+    //     } elseif ($index === 3) {
+    //         $demande->update([
+    //             'frais_douane3' => NULL,
+    //             'frais_transport3' => NULL,
+    //             'frais_autres3' => NULL,
+    //             'nombre_simulation' => $demande->nombre_simulation - 1,
+    //             'total_simulation3' => NULL
+    //         ]);
+    //         foreach($demande->produits as $produit){
+    //             $produit->update([
+    //                 'pu_3' => NULL,
+    //                 'pt_3' => NULL,
+    //                 'cu_3' => NULL,
+    //                 'ct_3' => NULL
+    //             ]);
+    //         }
+    //     }
+    // }
     
     
     

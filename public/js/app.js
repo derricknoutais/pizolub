@@ -73865,6 +73865,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/api/demande-achat/créer-simulation', this.donnéesAEnvoyer).then(function (response) {
                 console.log(response.data);
             }).catch(function (error) {});
+        },
+        supprimerSimulation: function supprimerSimulation(index) {
+            axios.get('/api/demande-achat/' + this.data.id + '/supprimer-simulation/' + index).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
         }
     },
     watch: {
@@ -74398,15 +74405,13 @@ var render = function() {
                             _vm.data.frais_autres1
                         )
                       )
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(6)
+                    ])
                   ])
                 : _vm._e(),
               _vm._v(" "),
               _vm.data.nombre_simulation > 1
                 ? _c("tr", [
-                    _vm._m(7),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm.data.total_simulation2))]),
                     _vm._v(" "),
@@ -74431,7 +74436,7 @@ var render = function() {
               _vm._v(" "),
               _vm.data.nombre_simulation > 2
                 ? _c("tr", [
-                    _vm._m(8),
+                    _vm._m(7),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm.data.total_simulation3))]),
                     _vm._v(" "),
@@ -74478,7 +74483,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(9),
+                    _vm._m(8),
                     _vm._v(" "),
                     _c("div", { staticClass: "row mx-3 mt-3" }, [
                       _c("div", { staticClass: "col-md-4" }, [
@@ -74561,7 +74566,7 @@ var render = function() {
                       _c("div", { staticClass: "row mt-4" }, [
                         _c("div", { staticClass: "col-md-12" }, [
                           _c("table", { staticClass: "table table-striped " }, [
-                            _vm._m(10),
+                            _vm._m(9),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -74720,7 +74725,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(11),
+                    _vm._m(10),
                     _vm._v(" "),
                     _c("div", { staticClass: "row mx-3 mt-3" }, [
                       _c("div", { staticClass: "col-md-4" }, [
@@ -74746,7 +74751,7 @@ var render = function() {
                       _c("div", { staticClass: "row mt-4" }, [
                         _c("div", { staticClass: "col-md-12" }, [
                           _c("table", { staticClass: "table table-striped " }, [
-                            _vm._m(12),
+                            _vm._m(11),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -74850,7 +74855,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(13),
+                    _vm._m(12),
                     _vm._v(" "),
                     _c("div", { staticClass: "row mx-3 mt-3" }, [
                       _c("div", { staticClass: "col-md-4" }, [
@@ -74876,7 +74881,7 @@ var render = function() {
                       _c("div", { staticClass: "row mt-4" }, [
                         _c("div", { staticClass: "col-md-12" }, [
                           _c("table", { staticClass: "table table-striped " }, [
-                            _vm._m(14),
+                            _vm._m(13),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -74980,7 +74985,7 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(15),
+                    _vm._m(14),
                     _vm._v(" "),
                     _c("div", { staticClass: "row mx-3 mt-3" }, [
                       _c("div", { staticClass: "col-md-4" }, [
@@ -75006,7 +75011,7 @@ var render = function() {
                       _c("div", { staticClass: "row mt-4" }, [
                         _c("div", { staticClass: "col-md-12" }, [
                           _c("table", { staticClass: "table table-striped " }, [
-                            _vm._m(16),
+                            _vm._m(15),
                             _vm._v(" "),
                             _c(
                               "tbody",
@@ -75194,8 +75199,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Frais Divers")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Total Simulation")]),
-      _vm._v(" "),
       _c("th")
     ])
   },
@@ -75216,12 +75219,6 @@ var staticRenderFns = [
         [_vm._v("1")]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("span", { staticClass: "fas fa-trash" })])
   },
   function() {
     var _vm = this

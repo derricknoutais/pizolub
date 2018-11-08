@@ -127,7 +127,7 @@
                 <th>Frais Douane</th>
                 <th>Frais Transport</th>
                 <th>Frais Divers</th>
-                <th>Total Simulation</th>
+                <!-- <th>Total Simulation</th> -->
                 <th></th>
             </thead>
             <tbody>
@@ -138,7 +138,7 @@
                     <td>{{ data.frais_transport1 }}</td>
                     <td>{{ data.frais_autres1 }}</td>
                     <td>{{ data.total_simulation1 + data.frais_douane1 + data.frais_transport1 + data.frais_autres1 }}</td>
-                    <td><span class="fas fa-trash"></span></td>
+                    <!-- <td><span class="fas fa-trash" @click="supprimerSimulation(1)"></span></td> -->
                 </tr>
                 <tr v-if="data.nombre_simulation > 1">
                     <td><a href="#" data-toggle="modal" data-target="#prevision2">2</a></td>
@@ -564,6 +564,13 @@ export default {
                 console.log(response.data)
             }).catch(error => {
 
+            });
+        },
+        supprimerSimulation(index){
+            axios.get('/api/demande-achat/' + this.data.id + '/supprimer-simulation/' + index).then(response => {
+                console.log(response.data);
+            }).catch(error => {
+                console.log(error);
             });
         }
     },
