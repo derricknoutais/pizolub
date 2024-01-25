@@ -5,6 +5,7 @@
             <thead>
                 <tr class="bg-primary text-light">
                     <th>Huiles de base</th>
+                    <th>Conditionnement</th>
                     <th>Fournisseur</th>
                     <th>Stock Total</th>
                     <th>Coût de Production Moyen</th>
@@ -29,14 +30,14 @@
 <script>
 
 export default {
-    data(){
+    data() {
         return {
             produits: {},
             paginate: ['produit-finis']
         }
     },
     methods: {
-        fetch(page=1){
+        fetch(page = 1) {
             axios.get('/api/produit-finis/inventaire?page=' + page).then(response => {
                 console.log(response.data)
                 this.produits = response.data
@@ -45,7 +46,7 @@ export default {
             });
         }
     },
-    mounted(){
+    mounted() {
         this.fetch();
     }
 }

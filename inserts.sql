@@ -38,10 +38,8 @@ Time:
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
 
-INSERT INTO `clients` (`
-id`,
-`nom
-`)
+INSERT INTO `clients` (`id`,
+`nom`)
 VALUES
 (1,'ENGEN'),
 (2,'OILIBYA'),
